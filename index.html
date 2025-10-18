@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Suma</title>
+  <style>
+    /* Estilos para la estructura básica de la página */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+
+    /* Contenedor del formulario */
+    .form-container {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Título del formulario */
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* Inputs, select y botón comparten base */
+    input,
+    select,
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 14px;
+      background-color: #fff;
+    }
+
+    /* --- Select: look & feel y flecha --- */
+    select {
+      /* Ocultar estilos nativos y unificar aspecto */
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+
+      /* Flecha SVG embebida */
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M5.5 7.5l4.5 5 4.5-5' fill='none' stroke='gray' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 16px 16px;
+
+      /* Deja espacio para la flecha */
+      padding-right: 40px;
+      cursor: pointer;
+    }
+
+    /* IE/Edge heredados: ocultar desplegable nativo */
+    select::-ms-expand {
+      display: none;
+    }
+
+    /* Foco/hover consistente con inputs */
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: #007BFF;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+    }
+
+    select:hover {
+      border-color: #b3b3b3;
+    }
+
+    /* Botón de envío */
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    /* Cambio de color al pasar el mouse */
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Mensaje de error */
+    .error {
+      color: red;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Contenedor del formulario -->
+  <div class="form-container">
+    <h2>Calculadora de dos numeros</h2>
+    <form id="calc-form" action="operaciones.php" method="post" novalidate>
+      <!-- Campo para el primer número -->
+      <input type="number" id="numero1" name="numero1" placeholder="Primer número" required>
+      <!-- Campo para el segundo número -->
+      <input type="number" id="numero2" name="numero2" placeholder="Segundo número" required>
+
+      <select name="operacion" id="operacion" required>
+        <option value="suma">Suma</option>
+        <option value="resta">Resta</option>
+        <option value="multiplicacion">Multiplicacion</option>
+        <option value="division">Division</option>
+      </select>
+
+      <!-- Mensaje de error -->
+      <div id="error-message" class="error" style="display: none;"></div>
+      <!-- Botón para enviar el formulario -->
+      <button type="submit">Calcular</button>
+    </form>
+  </div>
+
+  <script>
+    // Validaciones básicas en JavaScript
+    document.getElementById('calc-form').addEventListener('submit', function (e) {
+      const numero1 = document.getElementById('numero1').value.trim();
+      const numero2 = document.getElementById('numero2').value.trim();
+      const errorMessage = document.getElementById('error-message');
+
+      if (numero1 === '' || numero2 === '') {
+        e.preventDefault();
+        errorMessage.textContent = "Por favor, completa ambos campos.";
+        errorMessage.style.display = "block";
+      } else if (isNaN(numero1) || isNaN(numero2)) {
+        e.preventDefault();
+        errorMessage.textContent = "Ambos valores deben ser números.";
+        errorMessage.style.display = "block";
+      } else {
+        errorMessage.style.display = "none";
+      }
+    });
+  </script>
+</body>
+
+</html>
